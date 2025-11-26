@@ -1,0 +1,22 @@
+/* You can add custom styles here. */
+:root {
+  --font-sans: "Manrope", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* 1. Force the container and lines to use light text */
+:root.dark .highlight,
+:root.dark .chroma,
+:root.dark .cl {
+    color: #f0f0ef !important; /* Your light text color */
+}
+
+/* 2. Fix the specific 'Builtin' class (for 'cd') */
+:root.dark .chroma .nb {
+    color: #f0f0ef !important; /* Or use var(--love) for red, var(--gold) for yellow */
+}
+
+/* 3. Fix the "Prompt" character (the '>') if it gets a class later */
+:root.dark .chroma .gp {
+    color: #9e9e9d !important; /* Muted grey for the prompt symbol */
+}

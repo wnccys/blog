@@ -1,0 +1,15 @@
+[build]
+    base = "themes/hugo-toigian"
+    publish = "public"
+    command = "cd themes/hugo-toigian && npm install && cd ../.. && ln -s themes/hugo-toigian/node_modules node_modules && hugo --gc --minify"
+
+[context.production.environment]
+    # Use of a recent version of Hugo (Extended is required for Tailwind)
+    HUGO_VERSION = "0.121.2"
+    # Ensures submodules are fetched
+    HUGO_ENABLE_GIT_INFO = "true"
+
+[[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200

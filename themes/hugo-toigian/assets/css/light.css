@@ -1,0 +1,24 @@
+@import "assets/css/chroma/rose-pine-dawn.css";
+
+
+:root {
+  /* YOUR CUSTOM LIGHT COLORS */
+  --base: #FAF3EB;      /* Warm Cream Background */
+  --text: #060809;      /* Ink Black Text */
+  
+  /* Calculated Surface: slightly darker than base for contrast */
+  --surface: #f2e9df;   
+  --overlay: #e6dbcf;
+
+  /* ACCENTS (Kept original to maintain "Toigian" style) */
+  --subtle: var(--rp-dawn-subtle);
+  --highlight-low: var(--rp-dawn-hightlight-low);
+  --highlight-med: var(--rp-dawn-hightlight-med);
+  --highlight-high: var(--rp-dawn-hightlight-high);
+  --love: var(--rp-dawn-love);
+  --gold: var(--rp-dawn-gold);
+  --rose: var(--rp-dawn-rose);
+  --pine: var(--rp-dawn-pine);
+  --foam: var(--rp-dawn-foam);
+  --iris: var(--rp-dawn-iris);
+}

@@ -1,0 +1,8 @@
+{{ $dob := time.AsTime (.Get "date") }}
+{{ $age := sub now.Year $dob.Year }}
+
+{{ if lt now.YearDay $dob.YearDay }}
+    {{ $age = sub $age 1 }}
+{{ end }}
+
+{{ $age }}

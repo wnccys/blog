@@ -1,0 +1,19 @@
+/*! Giscus Rosé Pine Dawn (Light) */
+main {
+  --color-prettier-code-bg: #fffaf3;
+  --color-canvas-default: #faf4ed; /* Base */
+  --color-canvas-overlay: #fffaf3; /* Surface */
+  --color-canvas-subtle: #f2e9e1;  /* Overlay */
+  --color-border-default: #dfdad9; /* Highlight Med */
+  --color-border-muted: #f2e9e1;   /* Overlay */
+  --color-neutral-muted: #9893a5;  /* Muted */
+  --color-accent-fg: #907aa9;      /* Iris (Links) */
+  --color-accent-emphasis: #907aa9;
+  --color-fg-default: #575279;     /* Text */
+  --color-fg-muted: #797593;       /* Subtle */
+  --color-fg-subtle: #9893a5;      /* Muted */
+  --color-btn-text: #575279;       /* Text */
+  --color-btn-bg: #faf4ed;         /* Base */
+  --color-btn-primary-bg: #286983; /* Pine */
+  --color-btn-primary-text: #faf4ed;
+}

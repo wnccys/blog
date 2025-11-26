@@ -1,0 +1,61 @@
+@import "assets/css/chroma/rose-pine.css";
+
+
+:root.dark {
+    /* BACKGROUND COLOR (#181617) */
+    --base: #181617;
+
+    /* TEXT COLOR (#f0f0ef) */
+    --text: #f0f0ef;
+    
+    /* Surface: ~5% lighter. Subtle separation for cards/sidebars. */
+    --surface: #f0f0ef;
+
+    /* Overlay: ~12% lighter. Distinct separation for hovers/modals. */
+    --overlay: #f0f0ef;
+
+    --muted: #9e9e9d;
+
+    /* ACCENTS (Kept original) */
+    --subtle: var(--rp-main-subtle);
+    --highlight-low: var(--rp-main-hightlight-low);
+    --highlight-med: var(--rp-main-hightlight-med);
+    --highlight-high: var(--rp-main-hightlight-high);
+    --love: var(--rp-main-love);
+    --gold: var(--rp-main-gold);
+    --rose: var(--rp-main-rose);
+    --pine: var(--rp-main-pine);
+    --foam: var(--rp-main-foam);
+    --iris: var(--rp-main-iris);
+}
+
+/* 1. Force the container and lines to use light text */
+:root.dark .highlight,
+:root.dark .chroma,
+:root.dark .cl {
+    color: #f0f0ef !important; /* Your light text color */
+}
+
+/* 2. Fix the specific 'Builtin' class (for 'cd') */
+:root.dark .chroma .nb {
+    color: #f0f0ef !important; /* Or use var(--love) for red, var(--gold) for yellow */
+}
+
+/* 3. Fix the "Prompt" character (the '>') if it gets a class later */
+:root.dark .chroma .gp {
+    color: #9e9e9d !important; /* Muted grey for the prompt symbol */
+}
+
+/* Dark Mode Highlight Fix */
+:root.dark .chroma .hl {
+    /* Uses a 10% white overlay. This creates a perfect dark grey 
+       that matches your background tone automatically. */
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    
+    /* Ensure the highlight spans the full width of the code block */
+    display: block;
+    width: 100%;
+    
+    /* Optional: If the text becomes hard to read, force it white */
+    color: #fff !important;
+}

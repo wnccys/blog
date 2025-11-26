@@ -1,0 +1,21 @@
+{{ define "main" }}
+  <div class="content">
+    <h1 class="mb-8 text-4xl font-bold">Tags</h1>
+    
+    <ul class="space-y-4">
+      {{ range .Data.Terms.ByCount }}
+        <li class="flex items-baseline justify-between border-b border-subtle pb-2">
+          
+          <a href="{{ .Page.RelPermalink }}" class="text-lg font-medium hover:text-love transition-colors">
+            #{{ .Page.Title }}
+          </a>
+          
+          <span class="text-sm font-mono text-muted">
+            {{ .Count }} {{ if eq .Count 1 }}post{{ else }}posts{{ end }}
+          </span>
+          
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+{{ end }}

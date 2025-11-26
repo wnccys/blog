@@ -1,0 +1,28 @@
+{{ define "main" }}
+  <div class="content mb-12">
+    {{ .Content | emojify }}
+  </div>
+
+  <div class="content">
+    <h2 class="text-xl font-bold mb-6 list-none">Latest Archives</h3>
+    
+    <div class="space-y-4">
+      {{ range first 10 (where .Site.RegularPages "Type" "posts") }}
+        <div class="border-b border-subtle pb-2">
+          <div class="flex justify-between items-baseline">
+            <a href="{{ .RelPermalink }}" class="text-lg font-medium">
+              {{ .Title }}
+            </a>
+            <span class="text-sm text-muted font-mono whitespace-nowrap ml-4">
+              {{ .Date.Format "2006/01/02" }}
+            </span>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+
+    <div class="mt-8">
+      <a href="/posts" class="text-muted italic hover:text-text">View all archives →</a>
+    </div>
+  </div>
+{{ end }}

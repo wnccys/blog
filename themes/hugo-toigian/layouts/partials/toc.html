@@ -1,0 +1,66 @@
+<!-- Table of contents -->
+<div id="toc">
+  {{ if default true (default .Site.Params.toc .Params.toc) }}
+    {{ if gt (.TableOfContents | countwords)
+      0
+    }}
+      <details open>
+        <summary>Table of contents</summary>
+        <div id="toc-list">{{ .TableOfContents }}</div>
+      </details>
+    {{ end }}
+  {{ end }}
+</div>
+
+<style>
+    /* 1. Target EVERYTHING inside the TOC container */
+    #toc-list *,
+    #TableOfContents * {
+        list-style: none !important;      /* Kills standard bullets/numbers */
+        list-style-type: none !important; /* Kills specific types */
+    }
+
+    /* 2. Kill all pseudo-elements (where the "0." usually lives) */
+    #toc-list *:before,
+    #TableOfContents *:before,
+    #toc-list *:after,
+    #TableOfContents *:after {
+        content: "" !important;
+        content: none !important;
+        display: none !important;
+    }
+
+    /* 3. Hide markers (Modern browser feature for list numbers) */
+    #toc-list li::marker,
+    #TableOfContents li::marker {
+        content: "" !important;
+        display: none !important;
+        font-size: 0 !important;
+    }
+
+    /* 4. Reset margins to prevent "ghost" indentations */
+    #toc-list ul,
+    #TableOfContents ul {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    /* Styling for the Heading Anchor Links */
+    .anchor-link {
+        opacity: 0;           /* Hidden by default */
+        text-decoration: none;
+        color: #888;          /* Grey color */
+        margin-left: 0.5rem;  /* Little space after the text */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    /* Show the # when hovering over the H2, H3, etc. */
+    h1:hover .anchor-link,
+    h2:hover .anchor-link,
+    h3:hover .anchor-link,
+    h4:hover .anchor-link,
+    h5:hover .anchor-link,
+    h6:hover .anchor-link {
+        opacity: 1;           /* Visible on hover */
+    }
+</style>

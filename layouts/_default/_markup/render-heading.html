@@ -1,0 +1,12 @@
+<h{{ .Level }} id="{{ .Anchor | safeURL }}" class="group relative">
+  {{ .Text | safeHTML }}
+
+  {{ if eq .Page.Section "posts" }}
+      <a href="#{{ .Anchor | safeURL }}" 
+         class="anchor-link opacity-0 group-hover:opacity-100 transition-opacity ml-2 text-gray-500 no-underline"
+         aria-label="Link to this section">
+        #
+      </a>
+  {{ end }}
+  
+</h{{ .Level }}>
