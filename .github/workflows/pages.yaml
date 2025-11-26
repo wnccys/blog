@@ -33,7 +33,6 @@ jobs:
         with:
           node-version: '20'
 
-      # Official action to install Hugo (Cleaner than wget)
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
