@@ -1,11 +1,10 @@
-baseURL = '/blog'
+baseURL = '/'
 languageCode = 'en-us'
 title = 'wnccys'
 theme = "hugo-toigian"
 
-# themesDir = "../.."
-# (Optional) If you provide a Disqus shortname, comments will be enabled on
-# all pages.
+relativeURLs = false
+canonifyURLs = false
 
 [params]
 # (Optional, default true): Controls table of contents visibility on right side of pages.
