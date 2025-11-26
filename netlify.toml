@@ -1,15 +1,19 @@
 [build]
-    base = "themes/hugo-toigian"
-    publish = "public"
-    command = "cd themes/hugo-toigian && npm install && cd ../.. && ln -s themes/hugo-toigian/node_modules node_modules && hugo --gc --minify"
+  # 1. Netlify starts here. It finds package.json and runs 'npm install' automatically.
+  base = "themes/hugo-toigian"
+
+  # 2. We only need to go back to root to run Hugo.
+  #    We tell Hugo to build the site INTO the theme folder so Netlify can find it.
+  command = "cd ../.. && hugo --gc --minify --destination themes/hugo-toigian/public"
+
+  # 3. Netlify takes the folder from the 'base' directory.
+  publish = "public"
 
 [context.production.environment]
-    # Use of a recent version of Hugo (Extended is required for Tailwind)
-    HUGO_VERSION = "0.121.2"
-    # Ensures submodules are fetched
-    HUGO_ENABLE_GIT_INFO = "true"
+  HUGO_VERSION = "0.121.2"
+  HUGO_ENABLE_GIT_INFO = "true"
 
 [[redirects]]
-    from = "/*"
-    to = "/index.html"
-    status = 200
+  from = "/*"
+  to = "/index.html"
+  status = 200
