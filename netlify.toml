@@ -1,15 +1,8 @@
 [build]
-  # 1. Netlify starts in the theme folder
-  base = "themes/hugo-toigian"
-
-  # 2. THE FIX:
-  #    a. export PATH=... -> We add the CURRENT folder's (theme) node_modules to the system PATH.
-  #    b. cd ../..      -> We go back to the root.
-  #    c. hugo ...      -> Now when Hugo runs, it can "see" the PostCSS inside the theme.
-  command = "export PATH=$PWD/node_modules/.bin:$PATH && cd ../.. && hugo --gc --minify --destination themes/hugo-toigian/public"
-
-  # 3. Publish from the theme folder
   publish = "public"
+  
+  # ln -s ... -> Create a "Ghost Link" so Hugo thinks node_modules is in the root
+  command = "cd themes/hugo-toigian && npm install && cd ../.. && ln -s themes/hugo-toigian/node_modules node_modules && hugo --gc --minify"
 
 [context.production.environment]
   HUGO_VERSION = "0.121.2"
