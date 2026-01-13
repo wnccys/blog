@@ -2,18 +2,15 @@
 title: "Crafting a CLI Tracerouter from Scratch"
 date: 2025-11-25
 draft: false
-tags: ["rust", "network", "cli", "sockets", "windows", "tutorial"]
+tags: ["rust", "network", "cli", "sockets", "linux", "windows", "tutorial", "low-level programming"]
 toc: true
 ---
 
 In this tutorial, we’re going to make an CLI Tracerouter which uses a ICMP packet request approach, since the Raw Socket creation until the entire trace itself, what gives us a great vision of how requests are made and sent over the Internet, as well as we crafting our own Checksum function! Don’t get too hung up on these terms right now, the article is made to instruct first-way people who are interested in understanding the Internet deeper as well as the experienced ones.
 
-<aside>
-💡
 
-NOTE: The title doesn’t specify a language, the tutorial is written in Rust but it’s focus in on concepts, what makes it’s content suitable to be written in basically any language programming of your choice with sockets support !!
+> NOTE: The title doesn’t specify a language, the tutorial is written in Rust but it’s focus in on concepts, what makes it’s content suitable to be written in basically any language programming of your choice with sockets support !!
 
-</aside>
 
 ## But, what is a Socket?
 
@@ -32,7 +29,7 @@ The ICMP choice isn’t random, we can probe our network by manipulating the IP 
 <aside>
 💡
 
-NOTE: Hopefully in this case is because as we are dealing with strange routers, some of them can behavior different from what we expect; Like returning nothing when TTL reach 0, so it is interesting to test with many different target addresses to check they behavior.
+> NOTE: Hopefully in this case is because as we are dealing with strange routers, some of them can behavior different from what we expect; Like returning nothing when TTL reach 0, so it is interesting to test with many different target addresses to check they behavior.
 
 </aside>
 
