@@ -8,9 +8,48 @@
         <summary>Table of contents</summary>
         <div id="toc-list">{{ .TableOfContents }}</div>
       </details>
+      <nav id="TableOfContents-custom">
+        <ul>
+            <li>
+            <a href="#comments">Comments</a>
+            </li>
+        </ul>
+    </nav>
     {{ end }}
   {{ end }}
 </div>
+
+<style>
+    /* Remove extra padding that default <ul> adds */
+    #toc-list nav#TableOfContents-custom ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Match the font and spacing of the theme's TOC */
+    #toc-list nav#TableOfContents-custom a {
+        display: block;
+        padding: 2px 0;
+        font-size: 0.95rem; /* Matches the theme's sidebar font size */
+        color: var(--color-contrast-high); /* Uses the theme's variable if available */
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    /* Hover effect to match theme links */
+    #toc-list nav#TableOfContents-custom a:hover {
+        color: var(--color-primary); /* Or your theme's highlight color */
+        text-decoration: underline;
+    }
+
+    /* Add a tiny bit of separation between the auto-TOC and the Comments link */
+    #TableOfContents-custom {
+        border-top: 1px solid rgba(0,0,0,0.05);
+        margin-top: 5px;
+        padding-top: 5px;
+    }
+</style>
 
 <style>
     /* 1. Target EVERYTHING inside the TOC container */
