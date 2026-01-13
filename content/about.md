@@ -14,6 +14,7 @@ I started to practice programming at ~**14** years old with Ruby when later I jo
 
 - Spend time and discover new activities with my girlfriend
 - Listen to music
+- Piano
 - Gym
 - Read good visual-documented material
 - Discuss

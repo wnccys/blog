@@ -5,11 +5,11 @@ draft: false
 comments: false
 ---
 
-**Building:** A custom container runtime in Rust.
+_**Building:**_ A custom container runtime in Rust.
 
-**Learning:** Polonius borrow checker and OCI specs. Also practicing Italian daily.
+_**Learning:**_ Linux Containerization and Software Architecture. Also practicing Italian daily.
 
-**Reading:**
+_**Reading:**_
 
-* [Grokking Algorithms](https://a.co/d/1yGx6Lw)
-* [Fundamentals of Software Architecture: An Engineering Approach](https://a.co/d/ivmH2s8)
+* [_Grokking Algorithms_](https://a.co/d/1yGx6Lw)
+* [_Fundamentals of Software Architecture: An Engineering Approach_](https://a.co/d/ivmH2s8)
