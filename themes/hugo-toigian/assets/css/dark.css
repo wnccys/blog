@@ -7,7 +7,7 @@
 
     /* TEXT COLOR (#f0f0ef) */
     --text: #f0f0ef;
-    
+
     /* Surface: ~5% lighter. Subtle separation for cards/sidebars. */
     --surface: #f0f0ef;
 
@@ -48,14 +48,14 @@
 
 /* Dark Mode Highlight Fix */
 :root.dark .chroma .hl {
-    /* Uses a 10% white overlay. This creates a perfect dark grey 
+    /* Uses a 10% white overlay. This creates a perfect dark grey
        that matches your background tone automatically. */
     background-color: rgba(255, 255, 255, 0.1) !important;
-    
+
     /* Ensure the highlight spans the full width of the code block */
     display: block;
-    width: 100%;
-    
+    min-width: 100%;
+
     /* Optional: If the text becomes hard to read, force it white */
     color: #fff !important;
 }

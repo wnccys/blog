@@ -156,7 +156,7 @@ pre {
 
 pre > code {
   /* Disable inline code style */
-  @apply rounded-none p-0 bg-transparent font-mono text-md border-0 shadow-none;
+  @apply rounded-none p-0 bg-transparent font-mono text-md border-0 shadow-none inline-block;
 }
 
 /* ################################# */
