@@ -47,11 +47,11 @@ Our Tracerouter will take advantage of how TTL works and will probe the IP’s s
 
 ## Tools used in the tutorial
 
-#### [Language]
+**[Language]**
 
 Rust
 
-#### [Crates]
+**[Crates]**
 
 - local-ip-address —> Util which takes local IP dynamically.
 - dns-lookup —> Resolve CLI given domain name.
