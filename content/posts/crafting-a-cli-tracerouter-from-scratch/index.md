@@ -2,7 +2,7 @@
 title: "Crafting a CLI Tracerouter from Scratch"
 date: 2025-11-25
 draft: false
-tags: ["rust", "network", "cli", "sockets", "linux", "windows", "tutorial", "low-level programming"]
+tags: ["rust", "network", "cli", "sockets", "tutorial"]
 toc: true
 ---
 
@@ -37,7 +37,7 @@ Talking deeper about TTL, it is specified on the IP header, which is the layer r
 
 ![Image from Berkeley’s University CS168: [https://sp25.cs168.io/](https://sp25.cs168.io/).](image%201.png)
 
-Image from Berkeley’s University CS168: [https://sp25.cs168.io/](https://sp25.cs168.io/).
+_[Image from Berkeley’s University CS168](https://sp25.cs168.io/)._
 
 ## How we are going to make it exactly?
 
@@ -47,17 +47,15 @@ Our Tracerouter will take advantage of how TTL works and will probe the IP’s s
 
 ## Tools used in the tutorial
 
-[Language]
+#### [Language]
 
 Rust
 
-[Crates]
+#### [Crates]
 
-local-ip-address —> Util which takes local IP dynamically.
-
-dns-lookup —> Resolve CLI given domain name.
-
-socket2 —> Network Socket API.
+- local-ip-address —> Util which takes local IP dynamically.
+- dns-lookup —> Resolve CLI given domain name.
+- socket2 —> Network Socket API.
 
 ## Setting up our Environment
 
@@ -107,7 +105,7 @@ fn main() -> std::io::Result<()> {
 }
 ```
 
-This code reads the executable arguments and check if the hostname argument is present in program call, if not, it prints an error and finish the program process; 
+This code reads the executable arguments and check if the hostname argument is present in program call, if not, it prints an error and finish the program process;
 
 After that, we set a util function to resolve our hostname into it’s IPV4 address using the dns_lookup crate in *mod.rs*:
 
@@ -118,7 +116,7 @@ use std::net::IpAddr;
 use dns_lookup::lookup_host;
 
 /// Lookup host and return a list of valid IPV4-only addresses.
-/// 
+///
 pub fn resolve_host(hostname: &String) -> Vec<IpAddr> {
     match lookup_host(hostname) {
         Ok(ips) => {
@@ -148,13 +146,13 @@ use tracerouter::resolve_host;
 fn main() -> std::io::Result<()> {
 [...]
     println!("Tracing route to: {}...", &args[1]);
-    
+
     let ips = resolve_host(&args[1]);
     if ips.len() == 0 {
         eprintln!("Error: Could not find IP for {}", &args[1]);
         std::process::exit(1);
     }
-    
+
     Ok(())
 }
 ```
@@ -169,15 +167,15 @@ Now, in order to finally create our Socket we’re going to initialize it’s st
 use socket2::{Domain, Protocol, Socket, Type};
 
 fn main() -> std::io::Result<()> {
-[...]	
+[...]
     // Create our IPV4 Socket
     let socket = Socket::new(
         Domain::IPV4,
         Type::RAW,
         Some(Protocol::ICMPV4)
     ).expect("Error: Could not initialize Socket.
-    It is required for program to be running in a high privilege state.");   
-    
+    It is required for program to be running in a high privilege state.");
+
     // Specify to kernel we're sending our own IP header
     // If false, system will take care of it
     socket.set_header_included_v4(true).expect("Could not specify IP_HDRINCL header.");
@@ -234,7 +232,7 @@ fn main() -> std::io::Result<()> {
     packet[6..8].copy_from_slice(&0u16.to_be_bytes()); // Flags + Fragment Offset (0 unspecified)
     // packet[8] = 4;                       // TTL (Late populated)
     packet[9] = 1;                          // Protocol (ICMP)
-    
+
     Ok(())
 }
 ```
@@ -247,13 +245,13 @@ But, what about our own IP Address? How are we supposed to set it? That’s what
 [main.rs]
 
 [...]
-	
+
 	  if args.len() != 2 || args[1].is_empty() {
 	      eprintln!("Usage: tracerouter <hostname>");
 	      std::process::exit(1);
 	  }
 	  println!("Tracing route to: {}...", &args[1]);
-	
+
 	  let my_ip = local_ip().unwrap_or_else(|_| panic!("Could not get local IP."));
 
 [...]
@@ -270,7 +268,7 @@ This make sure our local IPV4 IP Address are available while using our applicati
 
 	  let my_ip_str = my_ip.to_string();
 	  let mut my_num_ip = my_ip_str.split(".");
-	
+
 	  // Set local IP Address to packet
 	  for index in 12..=15 {
 	      packet[index] = my_num_ip.next().unwrap().parse::<u8>().unwrap();
@@ -285,10 +283,10 @@ Next, as the destination domain can have multiple addresses (as we can see in th
 [main.rs]
 
 [...] - /* After set our IP code to packet */
-		
+
     // Uses each destination IP address to until an request is successfully completed
     for ip in dest_ips {
-        // Parse IP to number as u8 
+        // Parse IP to number as u8
         let str = ip.to_string();
         let mut num_ip = str.split(".");
 
@@ -298,7 +296,7 @@ Next, as the destination domain can have multiple addresses (as we can see in th
             packet[index] = num_ip.next().unwrap().parse::<u8>().unwrap();
         }
     }
-    
+
 [...]
 ```
 
@@ -322,7 +320,7 @@ Now, in order to send our packet, we need to craft the ICMP packet itself! as we
 [main.rs]
 
 [...] - /* After set our IP code to packet */
-		
+
     // ICMP Header
     packet[20] = 8;         // Type (Echo Request)
     // packet[21] = 0;      // Code (Omitted, already 0)
@@ -332,13 +330,13 @@ Now, in order to send our packet, we need to craft the ICMP packet itself! as we
     packet[25] = 0x34;
     packet[26] = 0x00;      // Sequence Number
     packet[27] = 0x01;
-		
+
     // Uses each destination IP address to until an request is successfully completed
     for ip in dest_ips {
-        // Parse IP to number as u8 
+        // Parse IP to number as u8
         let str = ip.to_string();
         let mut num_ip = str.split(".");
-    
+
 [...]
 ```
 
@@ -350,17 +348,17 @@ And calculate it’s checksum:
 [...] - /* After resolve_host() definition */
 
 /// Makes data into 2 bytes words, sum and invert them (NOT bit operation)
-/// 
+///
 /// [0x32, 0x00, 0x49, 0x30, [...]] -> Raw Vec (u8 representation)
-/// 
+///
 /// [0x3200, 0x4930, 0x0001, 0x3842] -> What we need
-/// 
+///
 pub fn calc_checksum(data: &[u8]) -> u16 {
     // u32 so we can handle u16 bit overflow later
     let mut sum = 0u32; // -> 00000000 00000000 00000000 00000000;
     let mut i = 0;
 
-    // -1 Set odd handling, as we step 2 each time when an odd is found 
+    // -1 Set odd handling, as we step 2 each time when an odd is found
     // the conditional is not true because it's value is equal to data.len() - 1
     while i < data.len() - 1 {
         // Get 1 byte and shift it by 1 byte.
@@ -381,7 +379,7 @@ pub fn calc_checksum(data: &[u8]) -> u16 {
     }
 
     // Strip zeroed bytes from u32 sum until a valid u16 is set.
-    // Finally, this is an operation to make our u32 with possible overflow 
+    // Finally, this is an operation to make our u32 with possible overflow
     // to fit into u16 correctly, following the checksum algorithm.
     while (sum >> 16) > 0 {
         // Sum lower 16 bits with overflow (if present)
@@ -406,7 +404,7 @@ mod tests {
     use super::*;
 
     /// Assert checksum of a dummy ICMP packet is correct.
-    /// 
+    ///
     #[test]
     fn pair_checksum() {
         let buf: [u8; 8] = [0x08, 0x00, 0x00, 0x00, 0x12, 0x34, 0x00, 0x01];
@@ -434,22 +432,22 @@ Finally mapping our objects with it:
 [main.rs]
 
 [...]
-		
+
 		packet[8] = 4;                          // TTL
 		packet[9] = 1;                          // Protocol (ICMP)
 
 		let ip_checksum = calc_checksum(&packet[0..20]);
 		packet[10] = (ip_checksum >> 8) as u8;  // High Byte
 		packet[11] = (ip_checksum & 0xFF) as u8;// Low Byte
-		
+
 		let my_ip_str = my_ip.to_string();
 		let mut my_num_ip = my_ip_str.split(".");
-		
+
 		// Set local IP Address to packet
 		for index in 12..=15 {
 		    packet[index] = my_num_ip.next().unwrap().parse::<u8>().unwrap();
 		}
-		
+
 		// ICMP Header
 		packet[20] = 8;         // Type (Echo Request)
 		// packet[21] = 0;      // Code (Omitted, already 0)
@@ -459,11 +457,11 @@ Finally mapping our objects with it:
 		packet[25] = 0x34;
 		packet[26] = 0x00;      // Sequence Number
 		packet[27] = 0x01;
-		
+
 		let icmp_checksum = calc_checksum(&packet[20..=27]);
 		packet[22] = (icmp_checksum >> 8) as u8;  // High Byte
 		packet[23] = (icmp_checksum & 0xFF) as u8;// Low Byte
-    
+
 [...]
 ```
 
@@ -511,12 +509,12 @@ Wow, that was a lot of work!! We’re getting near to the end of the article and
     for index in 16..=19 {
         packet[index] = num_ip.next().unwrap().parse::<u8>().unwrap();
     }
-    
+
     for ttl in 1..=30 {
       // Set TTL on IP header
       packet[8] = ttl;
 
-      // Effectivelly send our Packet, 
+      // Effectivelly send our Packet,
       // blocking current thread until a response is read or TTL end is reached.
       socket.set_read_timeout(Some(Duration::from_secs(3)))?;
       socket.send_to(&packet, &SockAddr::from(SocketAddr::new(dest_ip, 0)))?;
@@ -538,7 +536,7 @@ Now we create a match in our received socket data with it’s recv_from() functi
 [main.rs]
 
 [...]
-      // Effectivelly send our Packet, 
+      // Effectivelly send our Packet,
       // blocking current thread until a response is read or TTL end is reached.
       socket.set_read_timeout(Some(Duration::from_secs(3)))?;
       socket.send_to(&packet, &SockAddr::from(SocketAddr::new(dest_ip, 0)))?;
@@ -550,8 +548,8 @@ Now we create a match in our received socket data with it’s recv_from() functi
           Ok((size, sender)) => {
               println!("Received {size} bytes from {sender:?}");
 
-              // Responses generally are 56 (Time Exceed - IP Header/ICMP 
-              // of sender and original IP Header) 
+              // Responses generally are 56 (Time Exceed - IP Header/ICMP
+              // of sender and original IP Header)
               // or 28 (Success, IPHeader/ICMP packet of sender).
               let received_data = unsafe {
                   std::slice::from_raw_parts(
@@ -677,6 +675,6 @@ icmp_type: 0
 Reached destiny: 251.128.238
 ```
 
-So we’re done, our tracerouter from SCRATCH is working! Thank you for consuming this content; The original repository can be found here: 
+So we’re done, our tracerouter from SCRATCH is working! Thank you for consuming this content; The original repository can be found here:
 
 [https://github.com/FromScratchR/tracers](https://github.com/FromScratchR/tracers)
