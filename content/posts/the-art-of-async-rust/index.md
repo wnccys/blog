@@ -159,12 +159,12 @@ Ok, but how Future is really used? How do I implement that? How do I connect the
 
 Before diving into the concepts, I want to present a visual representation of the async execution.
 
-[future-unresolved](./future-unresolved.png)
+![future-unresolved](future-unresolved.png)
 
 Here we can see how all these pieces interacts roughly with each other and create a basic visual intuition of these interaction.
 But what happens when the Reactor finally receives the _'ready'_ notification from OS? Here's more visual representation:
 
-[future-resolved](./future-resolved.png)
+![future-resolved](future-resolved.png)
 
 It is worth to take a bit of time and analyse the images calmly ──.
 Now, lets analyse the Future trait concepts in more deepth.
