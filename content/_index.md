@@ -9,4 +9,4 @@ comments: false
 
 Here is the place where I drop and sync all knowledge I've acquired, as well as discuss them.
 
-[Check out my latest posts →](/posts)
+[Check out my posts →](/posts)
