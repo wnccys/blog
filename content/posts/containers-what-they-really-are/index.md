@@ -2,7 +2,7 @@
 title: "Containers: What they really are?"
 date: 2026-01-19
 draft: false
-tags: ["containers"]
+tags: ["containers", "linux"]
 ---
 
 > _Essentially Linux ones_
