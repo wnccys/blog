@@ -4,8 +4,9 @@
       class="flex flex-row w-full max-w-content justify-between italic gap-3"
     >
       <nav>
-        <a href="{{ .Site.BaseURL }}/index.xml"
-          ><svg
+        <a href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}"
+        aria-label="RSS Feed"
+    ><svg
             width="18px"
             height="18px"
             xmlns="http://www.w3.org/2000/svg"
@@ -72,21 +73,21 @@
     onclick="goToTop()"
     title="Go To Top"
     style="
-        position: fixed; 
-        bottom: 2rem; 
-        right: 2rem; 
-        z-index: 50; 
-        width: 2.5rem; 
-        height: 2.5rem; 
-        border-radius: 9999px; 
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 50;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 9999px;
         background-color: #060809; /* Special Black xD */
-        color: white; 
-        font-size: 1.25rem; 
-        font-weight: bold; 
-        border: none; 
+        color: white;
+        font-size: 1.25rem;
+        font-weight: bold;
+        border: none;
         cursor: pointer;
         display: none; /* Hidden by default */
-        opacity: 0; 
+        opacity: 0;
         transition: opacity 0.3s ease-in-out;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     "
@@ -100,19 +101,19 @@
     window.onscroll = function () {
         // If scrolled down more than 20px
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            
+
             // 1. Make it occupy space (display: block)
             toTopButton.style.display = "block";
-            
+
             // 2. Fade it in (opacity: 1) after a tiny delay
             setTimeout(() => {
                 toTopButton.style.opacity = "1";
             }, 10);
-            
+
         } else {
             // 1. Fade out
             toTopButton.style.opacity = "0";
-            
+
             // 2. Hide it completely after the animation (300ms)
             setTimeout(() => {
                 if (toTopButton.style.opacity === "0") { // Check to prevent flickering

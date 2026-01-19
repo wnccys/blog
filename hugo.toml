@@ -9,17 +9,24 @@ canonifyURLs = false
 [params]
 # (Optional, default true): Controls table of contents visibility on right side of pages.
 # Start and end levels can be controlled with markup.tableOfContents setting.
-toc = true
+  toc = true
 
 # (Optional, default true) Enables comments template on pages
 # By default partials/docs/comments.html includes Disqus template
 # See https://gohugo.io/content-management/comments/#configure-disqus
 # Can be overwritten by same param in page frontmatter
-comments = true
+  comments = true
+
+[services.rss]
+  limit = 20
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
 
 [params.author]
-name = "Vinicius de Souza"
-email = "wnccys@proton.me"
+  name = "Vinicius de Souza"
+  email = "wnccys@proton.me"
 
 [markup]
     defaultMarkdownHandler = "goldmark"
