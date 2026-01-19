@@ -1,8 +1,8 @@
 [build]
   publish = "public"
-  
+
   # ln -s ... -> Create a "Ghost Link" so Hugo thinks node_modules is in the root
-  command = "cd themes/hugo-toigian && npm install && cd ../.. && ln -s themes/hugo-toigian/node_modules node_modules && hugo --gc --minify"
+  command = "cd themes/hugo-toigian && npm install && cd ../.. && ln -s themes/hugo-toigian/node_modules node_modules && hugo --gc --minify -b https://wnccys.netlify.app/"
 
 [context.production.environment]
   HUGO_VERSION = "0.121.2"
