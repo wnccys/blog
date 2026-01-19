@@ -1,8 +1,8 @@
 ---
 title: "Containers: What they really are?"
-date: 2025-11-24
+date: 2026-01-19
 draft: true
-tags: ["containers", "linux"]
+tags: ["containers"]
 ---
 
 > _Essentially Linux ones_
@@ -171,7 +171,7 @@ While Namespaces provides the isolation (what I can see), CGroups provides the h
 
 Following the philosophy of Linux where 'all is a file', CGroups is an hierarchy of folders _and files_ which can be rougly found on ```/sys/fs/cgroup/docker/container-alpha/``` for example. Each process receives it's own 'tree' of CGroups, but still keep itself inside the global CGroup tree, the _v2_ specially is a more ergonomic solution, once its organization it superior compared to _v1_. Without CGroups, one container could consume all the RAM on a host and crash other containers (the "noisy neighbor" problem).
 
-CGroups stays as home-work for search **:^)**. Next: Capabilities.
+CGroups stays as home-work for search :^). Next: Capabilities.
 
 ### Capabilites and (Seccomp)
 
@@ -193,8 +193,20 @@ Capabilities is what the process is allowed to do, it includes open a network po
 - CAP_NET_BIND_SERVICE: This is a big one. Normally, only root can bind to "privileged" ports (ports below 1024, like 80 for HTTP or 443 for HTTPS). This capability allows a non-root process to bind to those ports.
 - CAP_KILL: Allows the process to send signals (like SIGKILL or SIGTERM) to processes that it does not own. Normally, you can only kill your own processes; this gives the process "overseer" power.
 
-Here, we create a definition which says: this process can write, bind to a network service and kill a process. Capabilities basically breaks the previous idea of "all-or-nothing", where the process could be either a Root or a Rootless one.
+Here, we create a definition which says: 'This process can write, bind to a network service and kill a process'. Capabilities basically breaks the previous idea of "all-or-nothing", where the process could be either a Root or a Rootless one.
 The 'bounding' specification is one of all the ones capabilities can have; 'bounding' acts like a ceiling, where the processes permission can never go beyond what is defined in it, even if an executable demands it.
+
+#### Seccomp
+
+Seccomp is a security facility in the Linux Kernel whose acts like a "firewall" for syscalls. It is vital for caontainers because as they host the same Kernel, if some attacker gets to bypass the container isolation, it's next step is usually exploit a kernel vulnerability. Which is the precise spot Seccomp acts.
+
+For example, a standard web server container has no reason to:
+
+- reboot(): Restart the host machine.
+- mount(): Mount new filesystems to escape its isolation.
+- kexec_load(): Load a new kernel to bypass all security.
+
+By applying a Seccomp profile, you ensure that even if the application is compromised, the attacker is "boxed" within a very narrow set of permissions.
 
 ### Networking
 
