@@ -99,7 +99,7 @@ One pretty thing about Containers is that they do not necessarily need internet 
 
 Ok, control over the environment, _Bundle Files_, _Clients_, _Daemons_👹, _Runtimes_... That's cool, but we still haven't seen the _real_ face, the one which is really isolated, the piece that the runtime construct the environment around it... And here is it:
 
-![alpine-folder](alpine-image-folder.png)
+![alpine-folder](alpine-folder.png)
 
 This is the mount point of the environment, **where** the Runtime will create the environment. It happens that this environment we've been talking a while is just a _Process_, yep, that's what ```docker ps``` shows something running. And here is the catch: The Runtime isolates a specific _Process_ which is mounted on the top of this rootfs folder, our _Image_.
 
