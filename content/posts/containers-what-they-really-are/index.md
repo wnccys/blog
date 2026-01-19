@@ -13,7 +13,7 @@ But they also has always been a big question-mark to me: I could never explain c
 
 I have heard they are boxes, but _Why_ we need them? _What_ they are made of? _How_ are they made? _Where_ are they built? _Why_ they need a Linux environment in order to work? To answer these questions is my ultimate goal with this article. So we begin:
 
-## Why
+## The Why
 
 The core idea of _containerization_ specially on the _software quality matter_ came with the specific issues of _environment disparity_, also known as the 'but on my machine is working!' problem.
 
@@ -95,7 +95,7 @@ You can even verify it's existences running ```which dockerd``` and ```which run
 
 One pretty thing about Containers is that they do not necessarily need internet connection in order to run, what makes it suitable to be runned on a lot of different situations, and as all the _Containers_ runs essentially on Linux environments, we can simply execute this image on _**every**_ compatible Kernel environment with the Image's target architecture.
 
-## What
+## The What
 
 Ok, control over the environment, _Bundle Files_, _Clients_, _Daemons_👹, _Runtimes_... That's cool, but we still haven't seen the _real_ face, the one which is really isolated, the piece that the runtime construct the environment around it... And here is it:
 
