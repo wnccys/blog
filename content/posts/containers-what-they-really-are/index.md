@@ -20,7 +20,7 @@ The core idea of _containerization_ specially on the _software quality matter_ c
 To _Containerize_ something means to use Kernel environment-specific tools, even if they the tool is a wrapper around these Kernel-tools, in order to create new environments with a specific fine-grained setup; What includes control over **CPU**, **Memory**, **Permissions**, **Network**, **File System** among others.
 This way we automatically get a 'work-on-all-linux-environments' box which has control of some important behaviors of our application.
 
-This box (following the Open-Container Initiative) is essentially a _**pack of folders**_ with a config.json file (more on that later), which generally comes in a GZip/Tar encoded format (.tar.gz), which is organized and runned by a _**runtime**_ like _**Docker**_. Which is the next matter we will be focusing on.
+This box (following the Open-Container Initiative) is essentially a _**pack of folders and files**_ with a config.json file (more on that later), which generally comes in a GZip/Tar encoded format (.tar.gz), which is organized and runned by a _**runtime**_ like _**Docker**_. Which is the next matter we will be focusing on.
 
 ### Runtimes
 
@@ -99,7 +99,7 @@ One pretty thing about Containers is that they do not necessarily need internet 
 
 Ok, control over the environment, _Bundle Files_, _Clients_, _Daemons_👹, _Runtimes_... That's cool, but we still haven't seen the _real_ face, the one which is really isolated, the piece that the runtime construct the environment around it... And here is it:
 
-![alpine-folder](alpine-folder.png)
+{{< figure src="alpine-folder.png" alt="alpine folder" class="center" >}}
 
 This is the mount point of the environment, **where** the Runtime will create the environment. It happens that this environment we've been talking a while is just a _Process_, yep, that's what ```docker ps``` shows something running. And here is the catch: The Runtime isolates a specific _Process_ which is mounted on the top of this rootfs folder, our _Image_.
 
@@ -235,4 +235,4 @@ They generally work by an external process, and are completely different applica
 
 Containers are really great tools which can be used in infinite ways and situations and solves a lot of problems, it is hard to quote some applications because all of them happens to fallback into the idea of being a _'boxed Linux environment'_. _Linux Containers_ furthermore of being the most used ones are not the unique type of containers, there are Windows and Apple Containers too; Every environment which can be boxed into this convenient configuration of 'executable environment' (even if its different from OCI spec) is a _Container_.
 
-And we are done :^). Thank you for reading this article; Feel free to lay some comments below. Hope to CYA (!!)
+And we are done :^). Thank you for reading this article, hope it has helped you to understand these mysterious concepts; Feel free to lay some comments below. Hope to CYA (!!)
