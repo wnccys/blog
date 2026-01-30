@@ -1,8 +1,8 @@
 ---
 title: "A Guide on How to Execute Linux Processes"
-date: 2025-01-30
+date: 2026-01-30
 draft: false
-tags: ["rust", "network", "linux", "low-level programming", "assembly"]
+tags: ["linux", "assembly"]
 toc: true
 ---
 
