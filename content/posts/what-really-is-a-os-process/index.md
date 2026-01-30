@@ -1,24 +1,28 @@
 ---
 title: "A Guide on How to Execute Linux Processes"
-date: 2025-12-24
-draft: true
+date: 2025-01-30
+draft: false
 tags: ["rust", "network", "linux", "low-level programming", "assembly"]
 toc: true
 ---
 
-On reality _Processes_ are a bundle of internal kernel structures, yes, actually _C structs_; Hopefully syncronized and connected.
+> In case of an armageddon, we know how to make it work again.
+
+On reality _Processes_ are a bundle of internal kernel structures, yes, actually _C structs_; Hopefully syncronized and connected orchestrated by a Scheduler.
 Specially on Linux Kernel, we have the ```task_struct``` (defined specifically on ```include/linux/sched.h```); [Visualize it here](https://elixir.bootlin.com/linux/v6.17/source/include/linux/sched.h#L816).
-When the kernel "schedules" a process, it is essentially loading data from this struct into the CPU registers.
+When the kernel "schedules" a process, it is essentially loading data this struct points to into the CPU registers.
 
 ## The face of task_struct
 
-Next, let's look at some of the fields ```task_struct``` has; Components stored in this structure include:
+The **task_struct** is like a save card for the Kernel, and the Kernel itself keep a copy of them for basically every single process. When we use, for example, _top_, _htop_ or even _ps_ command, we are asking the Kernel to read, format and send to us some fields of this struct.
+
+Let's look at some of the fields ```task_struct``` has; Components stored in this structure include:
 
 - Identifiers:
   - PID (Process ID): The unique number identifying the process.
   - PPID (Parent PID): The ID of the process that created this one.
   - TGID (Thread Group ID): If a process is multi-threaded, all threads share the same PID (in user space view) but have different kernel TIDs.
-- State: Is the process running? Waiting for network data? Stopped? Actually, this state is a // TODO
+- State: Is the process running? Waiting for network data? Stopped? Actually, this state is a TASK_RUNNING, TASK_STOPPED etc... It helps the Kernel information to better manage the process.
 - Scheduling Information: Priority, policy (e.g., _SCHED\_NORMAL_ vs _SCHED\_FIFO_), and time-slice usage.
 - File Descriptor Table: A list of all open files, sockets, and pipes.
 - Virtual Memory Map (_mm\_struct_): Pointers to exactly which parts of physical RAM this process owns.
@@ -92,7 +96,7 @@ Stack (Local)  : 0x7ffd5a98d3cc
 Stack (Args)   : 0x7ffd5a98e1a8
 ```
 
-> 💡 Note: The exact addresses may change as the memory is dynamically allocated _(!!)_
+> The exact addresses may change as the memory is dynamically allocated _(!!)_
 
 Now, let's inspect the behavior of ```task_struct```: What really happens to it when we realize this 'Brain Transplant'?
 
@@ -218,7 +222,7 @@ This code gets translated by LLVM to the IR into the specific Assembly language 
 mov eax, 10      ; Put 10 into accumulator (EAX/RAX)
 add eax, 20      ; Add 20 to whatever is in EAX
 
-The Assembler translates those words into specific OpCodes (Operation Codes). These are the hex numbers the CPU hardware is hardwired to understand.
+The Assembler (do not confuse with Assembly) translates those words into specific OpCodes (Operation Codes). These are the hex numbers the CPU hardware is hardwired to understand.
 
 - mov eax, ... might become the byte 0xB8.
 - add ... might become 0x83.
@@ -255,6 +259,25 @@ So:
 - Compilation: Translating human text -> Assembly Mnemonics -> Binary Opcodes.
 - Execution: Loading that binary into RAM and forcing the CPU's "eye" (RIP) to look at it.
 
-### The Scheduler
+## The Scheduler
 
-The Linux OS scheduler is called CFS (Completely-Fair Scheduler), it is algorithm managed by the _Kernel_ (located at ```kernel/sched/fair.c```) which tracks a single, critical variable inside task_struct nested in ```struct sched_entity```, the $vruntime$
+The Linux OS scheduler is called CFS (Completely-Fair Scheduler), it is algorithm managed by the _Kernel_ (located at ```kernel/sched/fair.c```) which tracks a single, critical variable inside _task_struct_, a substruct called _**sched_entity**_, which has our target field: The _**vruntime**_.
+The CFS always wants to run the task with the smallest _vruntime_. For this, it uses a mathematical schema with the **Red-Black Tree** data structure the Scheduler uses to distribute computation time between the processes.
+
+{{< figure src="vruntime-formula.png" alt="alpine folder" class="center" >}}
+
+* High Priority (Low Nice): Their **vruntime** grows slowly. They stay on the "left" side of the tree longer and get more CPU time.
+* Low Priority (High Nice): Their **vruntime** grows very fast. They zoom to the right side of the tree quickly, giving up the CPU to others.
+
+Every process has a Nice value, which dictates the importance relation between the processes.
+
+If you have two processes running:
+
+* Process A (Nice 0): Its weight is 1024. Its vruntime increases by exactly the amount of time it spent on the CPU.
+* Process B (Nice 5): Its weight is much lower (approx 335). Its vruntime increases much faster than the actual clock time.
+
+## Final Words
+
+The main purpose of the article is to give a intuition of what is happening beneath the hood (even that _basically_) on a matter all of we work daily on but most of the time we don't have a minimal idea of what's going on, and if we don't know that, we automatically don't know what can be made with it or what it can do; These are the things we _don't know we don't know_ (but now you do!).
+
+The article sake is to to go deeply but not too deep into the matter, or this article would have easily > 1024 topics. CYA(!!).
