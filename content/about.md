@@ -22,7 +22,7 @@ I started to practice programming at ~12 years old with Ruby when later I joined
 ## Some Open-Source Projects I Integrated
 
 - [**greed-client**](https://github.com/wnccys/greed-client) -> Decentralized game launcher with its own BitTorrent client.
-- [**asterisk**](https://github.com/wnccys/asterisk) -> Strong-typed interpreted programming language.
+- [**asterisk**](https://github.com/wnccys/asterisk) -> Experimental strong-typed interpreted programming language.
 - [**c-http**](https://github.com/Gabriel-Spinola/http-server-in-c) -> Pure-C web framework.
 - [**gleam-http**](https://github.com/wnccys/gleam-http) -> Gleam-lang submission to 3rd Rinha De Backend competition.
 - [**axel/woody**](https://github.com/FromScratchR/woody) -> Rootless container runtime/management CLI tool.
