@@ -2,7 +2,7 @@
 title: "Errors and Exceptions in TypeScript"
 date: 2026-01-29
 draft: false
-tags: ["typescript", "errors", "exceptions"]
+tags: ["typescript"]
 ---
 
 Errors and Exceptions are one of the most important matters when dealing with any language;

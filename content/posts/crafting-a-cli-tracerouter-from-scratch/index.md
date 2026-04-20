@@ -2,7 +2,7 @@
 title: "Crafting a CLI Tracerouter from Scratch"
 date: 2025-11-25
 draft: false
-tags: ["rust", "network", "cli", "sockets", "tutorial"]
+tags: ["rust", "networks", "tutorial"]
 toc: true
 ---
 
