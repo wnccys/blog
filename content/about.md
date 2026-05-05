@@ -19,7 +19,7 @@ I started to practice programming at ~12 years old with Ruby when later I joined
 - Read good visual-documented material
 - Discuss
 
-## Some Open-Source Projects I Integrated
+## Projects I Integrate
 
 - [**greed-client**](https://github.com/wnccys/greed-client) -> Decentralized game launcher with its own BitTorrent client.
 - [**asterisk**](https://github.com/wnccys/asterisk) -> Experimental strong-typed interpreted programming language.
